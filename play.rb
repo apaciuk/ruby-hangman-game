@@ -2,6 +2,7 @@ class Hangman
   def initialize
     @letters = ('a'..'z').to_a
     @word = words.sample
+    @lives = 7
   end
   def words
     [
@@ -20,6 +21,7 @@ class Hangman
     puts word_teaser
   end
   def make_guess
+    if @lives > 0
     puts "Enter a letter"
     guess = gets.chomp
     # if letter is not part of the word then remove from he letters array
@@ -28,9 +30,14 @@ class Hangman
     if good_guess
       puts "Good guess!"
     else
-      puts "Sorry... try again"
+      @lives -= 1
+      puts "Sorry... you have #{@lives} lives left - try again"
+      make_guess
     end
-  end
+    else
+      puts "Game Over!"
+    end
+    end
   def begin
     # ask user for a letter
     puts "New game started... your word is #{@word.first.size} letters long"
