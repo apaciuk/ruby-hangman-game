@@ -19,16 +19,18 @@ class Hangman
     ]
   end
   def print_teaser last_guess = nil
-    update_teaser unless last_guess.nil?
+    update_teaser(last_guess) unless last_guess.nil?
     puts @word_teaser
   end
-  def update_teaser
+  def update_teaser last_guess
     new_teaser = @word_teaser.split
       new_teaser.each_with_index do |letter, index|
       # replace blank values with guessed letter if matches letter in word
-      if letter == '_'
+      if letter == '_' && @word.first[index] == last_guess
+        new_teaser[index] = last_guess
     end
-    end
+    @word_teaser = new_teaser.join(' ')
+      end
     end
   def make_guess
     if @lives > 0
@@ -52,7 +54,7 @@ class Hangman
     else
       puts "Game Over - better luck next time!"
     end
-    end
+  end
   def begin
     # ask user for a letter
     puts "New game started... your word is #{@word.first.size} letters long"
