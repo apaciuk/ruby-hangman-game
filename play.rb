@@ -38,13 +38,19 @@ class Hangman
     guess = gets.chomp
     # if letter is not part of the word then remove from he letters array
     good_guess = @word.first.include? guess
-
-    if good_guess
+    if guess == "exit"
+      puts "Thank you for playing"
+    elsif good_guess
       puts "You are correct!"
       @correct_guesses << guess
       # remove correct guess from alphabet
       @letters.delete guess
       print_teaser guess
+      if @word.first == @word_teaser.split.join
+          puts "Congratulations, you have completed the game!"
+          exit
+      else
+      end
       make_guess
     else
       @lives -= 1
@@ -58,6 +64,7 @@ class Hangman
   def begin
     # ask user for a letter
     puts "New game started... your word is #{@word.first.size} letters long"
+    puts "To exit the game at any point type 'exit'"
     print_teaser
     puts "Clue is: #{@word.last}"
     make_guess
