@@ -6,7 +6,7 @@ class Hangman
     @correct_guesses = []
     @word_teaser = ""
     @word.first.size.times do
-      word_teaser += "_ "
+      @word_teaser += "_ "
     end
   end
   def words
@@ -20,10 +20,10 @@ class Hangman
   end
   def print_teaser last_guess = nil
     update_teaser unless last_guess.nil?
-    puts word_teaser
+    puts @word_teaser
   end
   def update_teaser
-    new_teaser = @word_teaser.
+    new_teaser = @word_teaser.split
       new_teaser.each_with_index do |letter, index|
       # replace blank values with guessed letter if matches letter in word
       if letter == '_'
